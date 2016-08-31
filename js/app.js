@@ -53,8 +53,8 @@
 	});	
 	
 	worker.onmessage = function(event) {
-		var BB = event.data;
-		console.log(BB);
+		var ret = event.data;
+		
 	};
 	document.getElementById("btnStart").onclick = function(){
 		console.log("button clicked");
@@ -67,11 +67,41 @@
 		worker.postMessage(sensorValues);
 	};
 	document.getElementById("btnStop").onclick= function(){
-		sensoroff();
+		//sensoroff();
+		var ts = Math.round(new Date().getTime()/1000);
+		console.log(ts);
+		var obj = {};
+		obj.metric = "tizen.test";
+		obj.timestamp = ts;
+		obj.value = 160;
+		var obj2 = {};
+		obj2.acc_z = "z";
+		obj.tags = obj2;
+		var dta = JSON.stringify(obj);
+		$(document).ready(function () {
+			var request = $.ajax({
+				url:"http://202.30.29.209:14242/api/put",
+				type:"POST",
+				dataType:"json",
+				contentType:"application/json",
+				data:dta,
+				cache:false
+			});
+		});
+		/*$.post("http://www.w3schools.com/jquery/demo_test_post.asp",
+	          {
+	            metric: "tizen.test",
+	            timestamp: 1470381864,
+	            value: 100,
+	            tags : {
+	  	            acc_z:"z"}
+       },
+	          function(data,status){
+	        	var e1 = ('Data: ' + data + '<br> Status: ' + status);
+	        });
+		 */
+		
 	};
-	
-	
-	
 } () );
 
 

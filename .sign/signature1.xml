@@ -4,7 +4,7 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI=".DS_Store">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>p2NlOPnEHQbhBjgWTQ4NCBk/s33NNE+Dg07YlwzWZX8=</DigestValue>
+<DigestValue>rcKFsf2rR1PAJRqbf30CxgE2RrnQ2SAKkv1PVR3JqgA=</DigestValue>
 </Reference>
 <Reference URI="Monitoring.wgt">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -16,7 +16,7 @@
 </Reference>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>pe0bVHgSVSBxQKaw4jt73zUsj1pNrFkf3u69NIgul6o=</DigestValue>
+<DigestValue>y+QzLt8+YtLdSS1Ymu7FdPMj0Dn8YMhLljdQRCHYOgo=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -32,7 +32,7 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>qxGku9x9oAoCd9Tv8RLhreb2NYWBNimt2I4LjJhhVao=</DigestValue>
+<DigestValue>NvWewc8Zm/O1REnrXmegRsH2AJ8NnvHG3SzB08yN/0k=</DigestValue>
 </Reference>
 <Reference URI="jquery-3.1.0.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -40,7 +40,11 @@
 </Reference>
 <Reference URI="js%2Fapp.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>JXlsb5OSiHD3T3bDBK1IJ4RDklSHK9cOK8aNVHmoplc=</DigestValue>
+<DigestValue>YaSJJTdMr1pcIS6TwpFpZbL1NCKAjUPxvfgUyHcZ+YI=</DigestValue>
+</Reference>
+<Reference URI="js%2Fjquery-3.1.0.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=</DigestValue>
 </Reference>
 <Reference URI="js%2FlowBatteryCheck.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -48,7 +52,7 @@
 </Reference>
 <Reference URI="js%2Fworker_test.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>rwqgeKjaz/2tjorrSDc3rtgeSNmqpTU+4K4ZMgVqZhI=</DigestValue>
+<DigestValue>Y6D/I7wruzATcppaI7PXguzkDXjr+RO4aiXWx4YxjbU=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2FLICENSE.Flora">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1035,11 +1039,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-MwRClBurCRbAF0C8O0bihdad9Zha9a93gQJ7URKvcmvt5SVfwtapa6WCVeOgsrJOticFgAzFntSg
-saGDecdyg4hdPUxdIhWg8wWgfR0g0rJhV+ixTNOFP+D6lJ4s+LnjvLU9bVY4ElzW8g0pz6EFd6XT
-VEQKqhqcAUp5vg1tQ6d2g4tL8a+TXpqVFpjz8gOd7fE/Hw6vpNRCereoxgda43AQWDGGsz17EXDP
-l4zABFu3quFRYGRujQjPuaV3Tpgel/pW1DvIsEqYDPyYCozCl7zjl2EZsLcz33lmrpRZzcScOQLs
-RcIu3z1pRpJPD9bCKCwnZ2nXxvKRqr4Ttui8lg==
+flv8LpfrdGSFLs6RGotAxlm3t5VF+Mex/xCbvSw+qbBGc6kK1g+1zN2VVzNeb2NgVCo56YeYk2iE
+Wh4vjDqqK3sNtVDlvsWb3K47WjHJuu6VjUEnbhm1CDOnD4b+N4fUqAFlYVqnLT0BDMYCB/Pupq3l
+6+m8sO4E9NBgvr19hMfSgTRXpMH/h1hZ3wqfuZDQfckysBHMxMgN/wk1etUQ2y81E/lJAA4w+8Ek
+9AVX+JfT2P2+revxLbEWYv+ZlMJOuTlSpszV3HZmcVmDlIfu56wGEEITCQsSV61WhdAOpo16/uN8
+S6WK3okMRSOuJ+cYbyUmq/zC7pXQuGwOUiOmHw==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
