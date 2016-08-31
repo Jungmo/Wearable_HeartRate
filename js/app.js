@@ -98,9 +98,12 @@
 		sensorValues.push(Ax);
 		sensorValues.push(Ay);
 		sensorValues.push(Az);
-		sendData();
-		worker.postMessage(sensorValues);
+		
 	};
+	window.setInterval(function(){
+		  /// call your function here
+		sendData();
+		}, 1000);
 	document.getElementById("btnStop").onclick= function(){
 		//sensoroff();
 		
