@@ -5,7 +5,6 @@
 	var Ay=0;
 	var Az=0;
 	var HR=0;
-	var worker = new Worker("js/worker_test.js");
 	window.addEventListener( 'tizenhwkey', function( ev ) {
 		if( ev.keyName === "back" ) {
 			var page = document.getElementsByClassName( 'ui-page-active' )[0],
@@ -52,10 +51,46 @@
 		//console.log("Error "+ hrm.heartRate);
 	});	
 	
-	worker.onmessage = function(event) {
-		var ret = event.data;
+	
+	function sendData(){
+		var ts = Math.round(new Date().getTime()/1000);
+		console.log(ts);
+		var sensorValues = [];
+		sensorValues.push(HR);
+		sensorValues.push(Ax);
+		sensorValues.push(Ay);
+		sensorValues.push(Az);
 		
-	};
+		var metric = "tizen.test2";
+		var HRjson = {"metric" : metric, "timestamp" : ts, "value": HR, "tags" :{"sensor" : "HR"}};
+
+		var Axjson = {"metric" : metric, "timestamp" : ts, "value": Ax , "tags" :{"sensor" : "Ax"}};
+
+		var Ayjson = {"metric" : metric, "timestamp" : ts, "value": Ay, "tags" :{"sensor" : "Ay"}};
+
+		var Azjson = {"metric" : metric, "timestamp" : ts, "value": Az, "tags" :{"sensor" : "Az"}};
+
+		var jsonArray = [];
+
+		jsonArray.push(HRjson);
+		jsonArray.push(Axjson);
+		jsonArray.push(Ayjson);
+		jsonArray.push(Azjson);
+		
+		var ret = JSON.stringify(jsonArray);
+		//var temp = ret.replace(new RegExp('\\"', 'g'),'"' );
+		console.log(ret);
+		$(document).ready(function () {
+			var request = $.ajax({
+				url:"http://202.30.29.209:14242/api/put",
+				type:"POST",
+				dataType:"json",
+				contentType:"application/json",
+				data:ret,
+				cache:false
+			});
+		});
+	}
 	document.getElementById("btnStart").onclick = function(){
 		console.log("button clicked");
 		var sensorValues = [];
@@ -63,43 +98,11 @@
 		sensorValues.push(Ax);
 		sensorValues.push(Ay);
 		sensorValues.push(Az);
-		
+		sendData();
 		worker.postMessage(sensorValues);
 	};
 	document.getElementById("btnStop").onclick= function(){
 		//sensoroff();
-		var ts = Math.round(new Date().getTime()/1000);
-		console.log(ts);
-		var obj = {};
-		obj.metric = "tizen.test";
-		obj.timestamp = ts;
-		obj.value = 160;
-		var obj2 = {};
-		obj2.acc_z = "z";
-		obj.tags = obj2;
-		var dta = JSON.stringify(obj);
-		$(document).ready(function () {
-			var request = $.ajax({
-				url:"http://202.30.29.209:14242/api/put",
-				type:"POST",
-				dataType:"json",
-				contentType:"application/json",
-				data:dta,
-				cache:false
-			});
-		});
-		/*$.post("http://www.w3schools.com/jquery/demo_test_post.asp",
-	          {
-	            metric: "tizen.test",
-	            timestamp: 1470381864,
-	            value: 100,
-	            tags : {
-	  	            acc_z:"z"}
-       },
-	          function(data,status){
-	        	var e1 = ('Data: ' + data + '<br> Status: ' + status);
-	        });
-		 */
 		
 	};
 } () );
