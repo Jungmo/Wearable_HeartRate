@@ -49,6 +49,7 @@ function sendToServer(sensorValues){
 		jsonArray.push(Azjson);
 		
 		var ret = JSON.stringify(jsonArray);
+		
 		$(document).ready(function () {
 			var request = $.ajax({
 				url:"http://202.30.29.209:14242/api/put",
@@ -63,7 +64,7 @@ function sendToServer(sensorValues){
 		return ret;
 	}
 
-var onmessage = function(event) {
+onmessage = function(event) {
 	var sensorValues = event.data;
 	//console.log(sensorValues[0], sensorValues[1], sensorValues[2], sensorValues[3]);	
 

@@ -5,7 +5,7 @@
 	var Ay=0;
 	var Az=0;
 	var HR=0;
-	var worker = new Worker("worker_test.js");
+	var worker = new Worker("js/worker_test.js");
 	window.addEventListener( 'tizenhwkey', function( ev ) {
 		if( ev.keyName === "back" ) {
 			var page = document.getElementsByClassName( 'ui-page-active' )[0],
@@ -52,10 +52,10 @@
 		//console.log("Error "+ hrm.heartRate);
 	});	
 	
-worker.onmessage = function(event) {
-	var BB = event.data;
-	console.log(BB);
-}
+	worker.onmessage = function(event) {
+		var BB = event.data;
+		console.log(BB);
+	};
 	document.getElementById("btnStart").onclick = function(){
 		console.log("button clicked");
 		var sensorValues = [];
@@ -63,7 +63,6 @@ worker.onmessage = function(event) {
 		sensorValues.push(Ax);
 		sensorValues.push(Ay);
 		sensorValues.push(Az);
-		
 		
 		worker.postMessage(sensorValues);
 	};
