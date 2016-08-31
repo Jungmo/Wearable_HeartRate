@@ -6,7 +6,6 @@
 	var Az=0;
 	var HR=0;
 	var worker = new Worker("worker_test.js");
-	
 	window.addEventListener( 'tizenhwkey', function( ev ) {
 		if( ev.keyName === "back" ) {
 			var page = document.getElementsByClassName( 'ui-page-active' )[0],
@@ -42,9 +41,10 @@
         Ax = e.accelerationIncludingGravity.x ;
         Ay = e.accelerationIncludingGravity.y ;
         Az = e.accelerationIncludingGravity.z ;
-		console.log(Ax, Ay, Az)
+		//console.log(Ax, Ay, Az);
 
 	});
+	
 	tizen.humanactivitymonitor.start("HRM",
 			function onSuccess(hrm) {
 		document.getElementById("divHertRate").innerHTML = hrm.heartRate;
@@ -52,35 +52,27 @@
 		//console.log("Error "+ hrm.heartRate);
 	});	
 	
-
+worker.onmessage = function(event) {
+	var BB = event.data;
+	console.log(BB);
+}
 	document.getElementById("btnStart").onclick = function(){
 		console.log("button clicked");
+		var sensorValues = [];
+		sensorValues.push(HR);
+		sensorValues.push(Ax);
+		sensorValues.push(Ay);
+		sensorValues.push(Az);
+		
+		
+		worker.postMessage(sensorValues);
 	};
 	document.getElementById("btnStop").onclick= function(){
 		sensoroff();
 	};
-
-	function test(){
-		var ts = Math.round(new Date().getTime()/1000);
-		console.log(ts);
-		var obj = new Object();
-		obj.metric = "tizen.test";
-		obj.timestamp = 1470381865;
-		obj.value = 120;
-		var obj2 = new Object();
-		obj2.acc_z = "z";
-		obj.tags = obj2;
-		var dta = JSON.stringify(obj);
-
-		var request = $.ajax({
-			url:"http://202.30.29.209:14242/api/put",
-			type:"POST",
-			dataType:"json",
-			contentType:"application/json",
-			data:dta,
-			cache:false
-		});
-	}
+	
+	
+	
 } () );
 
 
