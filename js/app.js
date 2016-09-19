@@ -23,7 +23,7 @@
 	} );
 
 	tizen.power.request("SCREEN", "SCREEN_NORMAL");
-	
+	tizen.power.turnScreenOn();
 	function sendData(){
 		var ts = Math.round(new Date().getTime()/1000);
 		console.log(ts);
