@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/Monitoring" version="1.0.0" viewmodes="maximized">
-    <access origin="*" subdomains="true"/>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/Monitoring" version="1.0.0" viewmodes="maximized">
+    <access origin="*" subdomains="true"></access>
     <tizen:allow-navigation>http://202.30.29.209:14242</tizen:allow-navigation>
     <tizen:application id="tjCNVqrAji.Monitoring" package="tjCNVqrAji" required_version="2.3.1"/>
     <content src="index.html"/>
@@ -9,9 +9,8 @@
     <name>Monitoring</name>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
     <tizen:privilege name="http://tizen.org/privilege/healthinfo"/>
-    <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
-    <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
     <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/power"/>
     <tizen:profile name="wearable"/>
     <tizen:setting hwkey-event="enable"/>
 </widget>

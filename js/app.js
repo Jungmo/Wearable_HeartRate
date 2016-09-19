@@ -5,6 +5,8 @@
 	var Ay=0;
 	var Az=0;
 	var HR=0;
+	var rawHR=0;
+	var sendFlag = 0;
 	window.addEventListener( 'tizenhwkey', function( ev ) {
 		if( ev.keyName === "back" ) {
 			var page = document.getElementsByClassName( 'ui-page-active' )[0],
@@ -20,46 +22,11 @@
 		}
 	} );
 
-	
-	// Display sensor value
-	/*
-	var alphaElem = document.getElementById("alpha");
-	var betaElem = document.getElementById("beta");
-	var gammaElem = document.getElementById("gamma");
-*/
-	//XXX:Gyro
-	/*
-	window.addEventListener("deviceorientation", function (e) {
-		alphaElem.innerHTML = 'alpha value ' + Math.round(e.alpha);
-		betaElem.innerHTML = 'beta value ' + Math.round(e.beta);
-		gammaElem.innerHTML = 'gamma value ' + Math.round(e.gamma);
-	}, true);
-	*/
-	
-	window.addEventListener('devicemotion', function(e) {
-        Ax = e.accelerationIncludingGravity.x ;
-        Ay = e.accelerationIncludingGravity.y ;
-        Az = e.accelerationIncludingGravity.z ;
-		//console.log(Ax, Ay, Az);
-
-	});
-	
-	tizen.humanactivitymonitor.start("HRM",
-			function onSuccess(hrm) {
-		document.getElementById("divHertRate").innerHTML = hrm.heartRate;
-		HR = hrm.heartRate;
-		//console.log("Error "+ hrm.heartRate);
-	});	
-	
+	tizen.power.request("SCREEN", "SCREEN_NORMAL");
 	
 	function sendData(){
 		var ts = Math.round(new Date().getTime()/1000);
 		console.log(ts);
-		var sensorValues = [];
-		sensorValues.push(HR);
-		sensorValues.push(Ax);
-		sensorValues.push(Ay);
-		sensorValues.push(Az);
 		
 		var metric = "tizen.test2";
 		var HRjson = {"metric" : metric, "timestamp" : ts, "value": HR, "tags" :{"sensor" : "HR"}};
@@ -70,13 +37,16 @@
 
 		var Azjson = {"metric" : metric, "timestamp" : ts, "value": Az, "tags" :{"sensor" : "Az"}};
 
+		var rawHRjson = {"metric" : metric, "timestamp" : ts, "value": rawHR, "tags" :{"sensor" : "rawHR"}};
+
 		var jsonArray = [];
 
 		jsonArray.push(HRjson);
 		jsonArray.push(Axjson);
 		jsonArray.push(Ayjson);
 		jsonArray.push(Azjson);
-		
+		jsonArray.push(rawHRjson);
+
 		var ret = JSON.stringify(jsonArray);
 		//var temp = ret.replace(new RegExp('\\"', 'g'),'"' );
 		console.log(ret);
@@ -91,23 +61,55 @@
 			});
 		});
 	}
+	 var HRMrawsensor = tizen.sensorservice.getDefaultSensor("HRM_RAW");
+	 function onGetSuccessCB(sensorData) {
+	     console.log("HRMRaw light intensity : " + sensorData.lightIntensity);
+	     rawHR = sensorData.lightIntensity
+	 }
+
+	 function onerrorCB(error) {
+	     console.log("error occurs");
+	 }
+
+	 function onsuccessCB() {
+	     console.log("HRMRaw sensor start");
+	     HRMrawsensor.getHRMRawSensorData(onGetSuccessCB, onerrorCB);
+	 }
+
+
 	document.getElementById("btnStart").onclick = function(){
 		console.log("button clicked");
-		var sensorValues = [];
-		sensorValues.push(HR);
-		sensorValues.push(Ax);
-		sensorValues.push(Ay);
-		sensorValues.push(Az);
+		window.addEventListener('devicemotion', function(e) {
+	        Ax = e.accelerationIncludingGravity.x ;
+	        Ay = e.accelerationIncludingGravity.y ;
+	        Az = e.accelerationIncludingGravity.z ;
+			//console.log(Ax, Ay, Az);
+		});
+		window.addEventListener('')
 		
+		tizen.humanactivitymonitor.start("HRM",
+				function onSuccess(hrm) {
+			document.getElementById("divHertRate").innerHTML = hrm.heartRate;
+			HR = hrm.heartRate;
+			 HRMrawsensor.start(onsuccessCB);
+
+			//console.log("Error "+ hrm.heartRate);
+		});	
+		sendFlag = 1;
+	};
+	document.getElementById("btnStop").onclick= function(){
+		//sensoroff();
+		tizen.humanactivitymonitor.stop("HRM");
+		window.removeEventListener("deviceorientation");
+		sendFlag = 0;
 	};
 	window.setInterval(function(){
 		  /// call your function here
-		sendData();
+			if(sendFlag == 1){
+				sendData();
+			}
 		}, 1000);
-	document.getElementById("btnStop").onclick= function(){
-		//sensoroff();
-		
-	};
+	
 } () );
 
 
