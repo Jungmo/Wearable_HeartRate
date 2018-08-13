@@ -21,7 +21,11 @@
 			}
 		}
 	} );
-
+	function basicVibration()
+	 {
+	    // Vibrate for 3 seconds 
+	    navigator.vibrate(100);
+	 }
 	tizen.power.request("SCREEN", "SCREEN_NORMAL");
 	tizen.power.turnScreenOn();
 	function sendData(){
@@ -52,7 +56,7 @@
 		console.log(ret);
 		$(document).ready(function () {
 			var request = $.ajax({
-				url:"http://202.30.29.209:14242/api/put",
+				url:"http://210.107.198.223:14242/api/put",
 				type:"POST",
 				dataType:"json",
 				contentType:"application/json",
@@ -60,6 +64,7 @@
 				cache:false
 			});
 		});
+		basicVibration();
 	}
 	 var HRMrawsensor = tizen.sensorservice.getDefaultSensor("HRM_RAW");
 	 function onGetSuccessCB(sensorData) {
